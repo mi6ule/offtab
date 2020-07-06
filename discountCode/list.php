@@ -4,7 +4,8 @@ include '../config/runConfig.php';
 
 
 try {
-    $res = query("SELECT * FROM discountCode WHERE active=:active",
+    include '../common/pagination.php';
+    $res = query("SELECT * FROM discountCode WHERE active=:active".$pagination,
                 array(
                     ':active'=>true
                     )

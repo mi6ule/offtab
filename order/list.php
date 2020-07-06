@@ -3,6 +3,7 @@ include '../config/runConfig.php';
 
 
 try {
+    include '../common/pagination.php';
     $res = query("SELECT `product`.name,`product`.code,`product`.image,`product`.description,`product`.detail,`product`.price,`order`.code as orderCode, `order`.basePrice,`order`.paidPrice,`order`.fullname,`order`.mobile,`order`.address,`order`.postalCode,`order`.city,`order`.state,`order`.detail as orderDetail,`order`.bankInfo,`order`.discountCode,`order`.marketerCode,`order`.created_at as datetime,`marketer`.fullname as marketer
                   FROM `product`
                   INNER JOIN `order` 
@@ -10,7 +11,7 @@ try {
                   INNER JOIN `marketer` 
                   ON (`marketer`.code=`order`.marketerCode) 
                   WHERE `order`.active=:active
-                ",
+                ".$pagination,
                 array(
                     ':active'=>true
                     )

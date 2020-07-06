@@ -6,6 +6,7 @@ include '../marketerAuth/auth.php';
 
 
 try {
+    include '../common/pagination.php';
     $id = $GLOBALS['marketerID'];
     $resMarketer = query("SELECT * FROM `marketer` WHERE id=:id AND active=:active LIMIT 1",
                     array(
@@ -21,7 +22,7 @@ try {
                   INNER JOIN `marketer` 
                   ON (`marketer`.code=`order`.marketerCode) 
                   WHERE `order`.active=:active AND `marketer`.code=:marketerCode
-                ",
+                ".$pagination,
                 array(
                     ':marketerCode'=>$resMarketer[0]['code'],
                     ':active'=>true
